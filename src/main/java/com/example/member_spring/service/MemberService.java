@@ -36,7 +36,9 @@ public class MemberService {
         return memberRepository.findAll();
     }
     public void deleteMember(Long id){
+        System.out.println(">>> deleteMember called with id = " + id);
         memberRepository.deleteById(id);
+        System.out.println(">>> deleteMember finished");
     }
     public void update(Long id, String name, int age){
         Member member = memberRepository.findById(id)
