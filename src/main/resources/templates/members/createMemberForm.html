@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>회원 등록</title>
+</head>
+<body>
+<h1>회원 등록</h1>
+
+<form th:action="@{/members/new}" method="post">
+    <div>
+        <label for="name">이름</label>
+        <input type="text" id="name" name="name">
+    </div>
+    <div>
+        <label for="age">나이</label>
+        <input type="number" id="age" name="age">
+    </div>
+    <button type="submit">등록</button>
+</form>
+
+<a th:href="@{/}">홈으로</a>
+</body>
+</html>
