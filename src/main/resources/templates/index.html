@@ -72,6 +72,7 @@
         <th>이름</th>
         <th>나이</th>
         <th>액션</th>
+        <th>email</th>
     </tr>
     </thead>
     <tbody>
@@ -79,6 +80,7 @@
         <td th:text="${member.id}">1</td>
         <td th:text="${member.name}">홍길동</td>
         <td th:text="${member.age}">20</td>
+        <td th:text="${member.email}"jyunseo@email.com</>
         <td>
             <!-- 수정 페이지로 이동 -->
             <a th:href="@{|/members/${member.id}/edit|}">수정</a>

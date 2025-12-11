@@ -1,10 +1,13 @@
 package com.example.member_spring.controller;
 
+import com.example.member_spring.controller.dto.MemberCreateDto;
 import com.example.member_spring.controller.dto.MemberUpdateDto;
 import com.example.member_spring.domain.Member;
 import com.example.member_spring.service.MemberService;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,14 +29,17 @@ public class MemberController {
         return "index";
     }
    @GetMapping("/members/new")
-    public String createForm(){
+    public String createForm(Model model){
+        model.addAttribute("create", new MemberCreateDto());
         return "members/createMemberForm";
    }
    @PostMapping("/members/new")
-    public String create(@RequestParam String name,@RequestParam int age){
+    public String create(@ModelAttribute("create") @Valid MemberCreateDto update,
+                         BindingResult bindingResult){
         Member member = new Member();
-        member.setName(name);
-        member.setAge(age);
+        member.setName(update.getName());
+        member.setAge(update.getAge());
+        member.setEmail(update.getEmail());
 
         memberService.join(member);
         return "redirect:/";
@@ -45,6 +51,7 @@ public class MemberController {
         MemberUpdateDto dto = new MemberUpdateDto();
         dto.setAge(member.getAge());
         dto.setName(member.getName());
+        dto.setEmail(member.getEmail());
 
         model.addAttribute("memberId", id);
         model.addAttribute("form", dto);
@@ -53,7 +60,7 @@ public class MemberController {
    }
    @PostMapping("/members/{id}/edit")
     public String edit(@PathVariable Long id, @ModelAttribute("form") MemberUpdateDto dto ){
-        memberService.update(id, dto.getName(),dto.getAge());
+        memberService.update(id, dto.getName(),dto.getAge(),dto.getEmail());
        return "redirect:/members";
    }
 

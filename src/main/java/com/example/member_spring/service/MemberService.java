@@ -40,11 +40,12 @@ public class MemberService {
         memberRepository.deleteById(id);
         System.out.println(">>> deleteMember finished");
     }
-    public void update(Long id, String name, int age){
+    public void update(Long id, String name, int age,String email){
         Member member = memberRepository.findById(id)
                         .orElseThrow(()-> new IllegalArgumentException("해당 아이디 없습니다."));
         member.setName(name);
         member.setAge(age);
+        member.setEmail(email);
 
 
     }
